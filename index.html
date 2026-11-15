@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vovinam - Việt Võ Đạo | Tinh Hoa Võ Thuật Việt Nam</title>
+    <!-- Tải Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tải Google Fonts: Inter & Be Vietnam Pro -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Be Vietnam Pro"', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        vovinam: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#1d4ed8', // Xanh võ phục đặc trưng
+                            700: '#1e40af',
+                            800: '#1e3a8a',
+                            900: '#172554', // Xanh navy sâu thẳm
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-vovinam-600 selection:text-white">
+
+    <!-- Thanh điều hướng (Navigation Bar) -->
+    <header class="sticky top-0 z-50 bg-vovinam-900/95 backdrop-blur-md border-b border-vovinam-800 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <!-- Logo Vovinam SVG tự thiết kế -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white p-1 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+                        <svg viewBox="0 0 100 100" class="w-full h-full">
+                            <!-- Vòng tròn âm dương cách điệu Vovinam -->
+                            <circle cx="50" cy="50" r="46" fill="none" stroke="#1d4ed8" stroke-width="5"/>
+                            <path d="M50 4 A46 46 0 0 1 50 96 A23 23 0 0 1 50 50 A23 23 0 0 0 50 4 Z" fill="#dc2626"/>
+                            <path d="M50 4 A46 46 0 0 0 50 96 A23 23 0 0 0 50 50 A23 23 0 0 1 50 4 Z" fill="#1d4ed8"/>
+                            <circle cx="50" cy="27" r="7" fill="#1d4ed8"/>
+                            <circle cx="50" cy="73" r="7" fill="#dc2626"/>
+                            <!-- Viền vàng bản đồ/tinh thần -->
+                            <circle cx="50" cy="50" r="46" fill="none" stroke="#facc15" stroke-width="2" stroke-dasharray="6,3"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-lg md:text-xl tracking-wider block leading-none text-white">VOVINAM</span>
+                        <span class="text-xs font-medium text-vovinam-300 tracking-widest uppercase">Việt Võ Đạo</span>
+                    </div>
+                </a>
+
+                <!-- Menu Desktop -->
+                <nav class="hidden md:flex space-x-8 text-sm font-medium">
+                    <a href="#sang-to" class="text-vovinam-100 hover:text-white hover:underline underline-offset-8 decoration-vovinam-400 decoration-2 transition">Sáng Tổ Nguyễn Lộc</a>
+                    <a href="#vo-phuc" class="text-vovinam-100 hover:text-white hover:underline underline-offset-8 decoration-vovinam-400 decoration-2 transition">Ý Nghĩa Màu Áo Xanh</a>
+                    <a href="#bac-dai" class="text-vovinam-100 hover:text-white hover:underline underline-offset-8 decoration-vovinam-400 decoration-2 transition">Hệ Thống Bậc Đai</a>
+                </nav>
+
+                <!-- Nút hành động Mobile / Desktop -->
+                <div class="flex items-center space-x-3">
+                    <a href="#bac-dai" class="hidden sm:inline-flex items-center px-4 py-2 rounded-full bg-vovinam-600 hover:bg-vovinam-500 text-white text-sm font-semibold shadow-md transition">
+                        Khám Phá Đẳng Cấp
+                    </a>
+                    <!-- Nút mở menu trên mobile -->
+                    <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-vovinam-200 hover:text-white hover:bg-vovinam-800 focus:outline-none" aria-label="Mở menu">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Mobile thả xuống -->
+        <div id="mobile-menu" class="hidden md:hidden bg-vovinam-800 border-t border-vovinam-700 px-4 pt-2 pb-4 space-y-2">
+            <a href="#sang-to" class="block px-3 py-2 rounded-lg text-base font-medium text-white hover:bg-vovinam-700">1. Sáng Tổ Nguyễn Lộc</a>
+            <a href="#vo-phuc" class="block px-3 py-2 rounded-lg text-base font-medium text-white hover:bg-vovinam-700">2. Ý Nghĩa Màu Áo Xanh</a>
+            <a href="#bac-dai" class="block px-3 py-2 rounded-lg text-base font-medium text-white hover:bg-vovinam-700">3. Hệ Thống Bậc Đai</a>
+        </div>
+    </header>
+
+    <!-- HERO BANNER -->
+    <section class="relative bg-gradient-to-br from-vovinam-900 via-vovinam-800 to-vovinam-600 text-white overflow-hidden">
+        <!-- Họa tiết nền hình học mờ -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid-pattern)" />
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <!-- Nội dung chữ Hero -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center px-3.5 py-1.5 rounded-full bg-vovinam-700/80 border border-vovinam-400/30 text-vovinam-200 text-xs sm:text-sm font-semibold tracking-wide uppercase">
+                        <span class="w-2 h-2 rounded-full bg-sky-400 mr-2 animate-pulse"></span>
+                        Di Sản Văn Hóa Phi Vật Thể Quốc Gia
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                        VOVINAM <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-blue-200 to-white">
+                            VIỆT VÕ ĐẠO
+                        </span>
+                    </h1>
+                    <p class="text-lg sm:text-xl text-vovinam-100 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
+                        "Bàn tay thép đặt lên trái tim từ ái" — Môn võ thuật cổ truyền kết hợp tinh hoa võ học nhân loại, rèn luyện cả thể chất lẫn tâm hồn người Việt.
+                    </p>
+                    <div class="pt-2 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#sang-to" class="px-7 py-3.5 rounded-xl bg-white text-vovinam-900 font-bold shadow-lg hover:bg-sky-50 transition transform hover:-translate-y-0.5 text-center">
+                            Tìm Hiểu Lịch Sử
+                        </a>
+                        <a href="#vo-phuc" class="px-7 py-3.5 rounded-xl bg-vovinam-700/70 hover:bg-vovinam-700 border border-vovinam-400/40 text-white font-semibold transition text-center">
+                            Ý Nghĩa Màu Võ Phục
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hình ảnh minh họa Hero -->
+                <div class="lg:col-span-5">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-vovinam-400/30 group">
+                        <img 
+                            src="https://images.unsplash.com/photo-1555597673-b21d5c935865?auto=format&fit=crop&w=1000&q=80" 
+                            alt="Minh họa tinh thần võ thuật Vovinam" 
+                            onerror="this.src='https://placehold.co/800x600/1e3a8a/ffffff?text=Vovinam+Viet+Vo+Dao'"
+                            class="w-full h-72 sm:h-96 object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-vovinam-950/90 via-vovinam-900/20 to-transparent flex items-end p-6">
+                            <div class="text-white">
+                                <p class="text-xs uppercase tracking-widest text-sky-300 font-semibold">Tinh thần thượng võ</p>
+                                <p class="text-base sm:text-lg font-bold mt-1">Đòn chân tấn công & Cương nhu phối triển</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHẦN 1: NGƯỜI SÁNG LẬP MÔN VÕ VOVINAM -->
+    <section id="sang-to" class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Tiêu đề mục -->
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="text-vovinam-600 font-bold tracking-wider uppercase text-sm">Cội Nguồn Lịch Sử</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-vovinam-900 mt-2">
+                    Người Sáng Lập Môn Võ Vovinam
+                </h2>
+                <div class="w-20 h-1.5 bg-gradient-to-r from-vovinam-600 to-sky-400 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                <!-- Cột trái: Chân dung / Biểu tượng trang trọng của Sáng Tổ -->
+                <div class="lg:col-span-5">
+                    <div class="bg-gradient-to-b from-vovinam-50 to-vovinam-100 rounded-3xl p-6 sm:p-8 border border-vovinam-200 shadow-xl relative">
+                        <!-- Khung ảnh chân dung kết hợp minh họa trang trọng -->
+                        <div class="relative rounded-2xl overflow-hidden bg-vovinam-900 shadow-inner aspect-[4/5] flex flex-col items-center justify-center text-center p-6 border-2 border-vovinam-600/30">
+                            <img 
+                                src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=800&q=80" 
+                                alt="Biểu tượng tinh thần Sáng tổ Nguyễn Lộc" 
+                                onerror="this.src='https://placehold.co/600x750/1e40af/ffffff?text=Sang+To+Nguyen+Loc'"
+                                class="absolute inset-0 w-full h-full object-cover opacity-35 mix-blend-luminosity"
+                            >
+                            <!-- Huy hiệu trang trọng -->
+                            <div class="relative z-10 w-28 h-28 rounded-full bg-vovinam-800/90 border-4 border-amber-400 flex items-center justify-center shadow-lg mb-5">
+                                <svg class="w-14 h-14 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                </svg>
+                            </div>
+                            <div class="relative z-10 space-y-2">
+                                <span class="px-3 py-1 bg-amber-500/20 border border-amber-400/50 text-amber-300 text-xs font-bold uppercase tracking-widest rounded-full">
+                                    Võ Sư Sáng Tổ
+                                </span>
+                                <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
+                                    NGUYỄN LỘC
+                                </h3>
+                                <p class="text-sky-200 font-medium text-sm">
+                                    (1912 – 1960)
+                                </p>
+                                <div class="pt-4 border-t border-white/15 mt-4">
+                                    <p class="text-xs sm:text-sm text-vovinam-100 italic">
+                                        "Sáng lập Vovinam tại Hà Nội năm 1938 với tâm nguyện hun đúc tinh thần quật cường cho thanh niên Việt Nam."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Các mốc thời gian nổi bật -->
+                        <div class="grid grid-cols-3 gap-3 mt-6 text-center">
+                            <div class="bg-white p-3 rounded-2xl shadow-sm border border-vovinam-100">
+                                <span class="block text-xl font-extrabold text-vovinam-700">1912</span>
+                                <span class="text-xs text-slate-500 font-medium">Năm sinh</span>
+                            </div>
+                            <div class="bg-vovinam-600 p-3 rounded-2xl shadow-sm text-white">
+                                <span class="block text-xl font-extrabold">1938</span>
+                                <span class="text-xs text-vovinam-100 font-medium">Sáng lập</span>
+                            </div>
+                            <div class="bg-white p-3 rounded-2xl shadow-sm border border-vovinam-100">
+                                <span class="block text-xl font-extrabold text-vovinam-700">70+</span>
+                                <span class="text-xs text-slate-500 font-medium">Quốc gia</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cột phải: Tiểu sử & Triết lý Cách mạng tâm thân -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center space-x-2 text-vovinam-700 font-semibold bg-vovinam-50 px-4 py-1.5 rounded-full text-sm">
+                        <span>Quê quán: Làng Hữu Bằng, huyện Thạch Thất, tỉnh Sơn Tây (nay thuộc Hà Nội)</span>
+                    </div>
+
+                    <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 leading-snug">
+                        Hành trình khai sinh nền võ học mang bản sắc dân tộc Việt
+                    </h3>
+
+                    <p class="text-slate-600 leading-relaxed text-base sm:text-lg">
+                        Võ sư Sáng tổ <strong class="text-vovinam-800">Nguyễn Lộc</strong> sinh ngày 24 tháng 5 năm 1912 (tức mùng 8 tháng 4 năm Nhâm Tý). Lớn lên trong bối cảnh đất nước chịu ách đô hộ, chứng kiến sự lầm than của đồng bào, ông sớm nung nấu ý chí tìm con đường tự cường cho dân tộc thông qua việc rèn luyện thân thể và ý chí.
+                    </p>
+
+                    <p class="text-slate-600 leading-relaxed text-base sm:text-lg">
+                        Sau nhiều năm dày công nghiên cứu vật cổ truyền Việt Nam kết hợp chắt lọc tinh hoa của nhiều môn phái võ thuật trên thế giới, đến <strong class="text-vovinam-700">mùa thu năm 1938</strong>, ông chính thức hoàn thiện và giới thiệu môn phái <strong class="text-vovinam-800">Vovinam</strong> tại Hà Nội.
+                    </p>
+
+                    <!-- Hộp nhấn mạnh Triết lý Cách mạng tâm thân -->
+                    <div class="bg-gradient-to-r from-vovinam-900 to-vovinam-700 rounded-2xl p-6 sm:p-8 text-white shadow-lg">
+                        <div class="flex items-start space-x-4">
+                            <div class="p-3 bg-white/10 rounded-xl shrink-0">
+                                <svg class="w-7 h-7 text-sky-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="text-lg sm:text-xl font-bold text-sky-300 mb-2">
+                                    Triết Lý "Cách Mạng Tâm Thân"
+                                </h4>
+                                <p class="text-vovinam-100 text-sm sm:text-base leading-relaxed">
+                                    Sáng tổ Nguyễn Lộc đề ra chủ thuyết <strong>"Cách mạng tâm thân"</strong> — thúc đẩy mỗi môn sinh không ngừng tự canh tân bản thân: <em>tâm hồn luôn thanh cao, trí tuệ minh mẫn và thể chất cường tráng</em>. Từ việc hoàn thiện chính mình, người học võ mới có thể phụng sự gia đình, xã hội và Tổ quốc.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHẦN 2: Ý NGHĨA MÀU ÁO VÕ XANH DƯƠNG -->
+    <section id="vo-phuc" class="py-16 md:py-24 bg-gradient-to-b from-vovinam-50 via-sky-50/70 to-white border-y border-vovinam-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="text-vovinam-600 font-bold tracking-wider uppercase text-sm">Bản Sắc Đặc Trưng</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-vovinam-900 mt-2">
+                    Ý Nghĩa Màu Áo Võ Xanh Dương
+                </h2>
+                <p class="text-slate-600 mt-4 text-base sm:text-lg">
+                    Khác biệt với sắc trắng hay đen thường thấy ở nhiều môn võ Á Đông, màu xanh dương của võ phục Vovinam mang thông điệp nhân văn sâu sắc.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <!-- Cột trái: 4 giá trị biểu tượng của màu xanh -->
+                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Thẻ 1: Hòa Bình -->
+                    <div class="bg-white p-6 rounded-2xl shadow-md border border-vovinam-100 hover:shadow-xl hover:border-vovinam-300 transition">
+                        <div class="w-12 h-12 rounded-xl bg-vovinam-600 text-white flex items-center justify-center mb-4 shadow-md">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-vovinam-900 mb-2">Biểu Tượng Hòa Bình</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Màu xanh dương là sắc màu của sự hòa hiếu và nhân ái. Người học Vovinam luyện võ không phải để hiếu chiến, mà để tự vệ chính đáng, bảo vệ lẽ phải và kiến tạo hòa bình.
+                        </p>
+                    </div>
+
+                    <!-- Thẻ 2: Niềm Hy Vọng -->
+                    <div class="bg-white p-6 rounded-2xl shadow-md border border-vovinam-100 hover:shadow-xl hover:border-vovinam-300 transition">
+                        <div class="w-12 h-12 rounded-xl bg-sky-500 text-white flex items-center justify-center mb-4 shadow-md">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-vovinam-900 mb-2">Khát Vọng & Hy Vọng</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Sắc xanh tươi sáng gửi gắm niềm tin vào tương lai rạng rỡ của dân tộc, khơi dậy ý chí vươn lên vượt qua mọi nghịch cảnh của mỗi môn sinh Việt Võ Đạo.
+                        </p>
+                    </div>
+
+                    <!-- Thẻ 3: Tuổi Trẻ Nhiệt Huyết -->
+                    <div class="bg-white p-6 rounded-2xl shadow-md border border-vovinam-100 hover:shadow-xl hover:border-vovinam-300 transition">
+                        <div class="w-12 h-12 rounded-xl bg-blue-700 text-white flex items-center justify-center mb-4 shadow-md">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-vovinam-900 mb-2">Sức Sống Tuổi Trẻ</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Tượng trưng cho sự năng động, tinh thần dấn thân và nhiệt huyết thanh xuân — lực lượng nòng cốt kế thừa và phát huy tinh hoa võ đạo Việt Nam ra toàn thế giới.
+                        </p>
+                    </div>
+
+                    <!-- Thẻ 4: Biển Cả & Bầu Trời -->
+                    <div class="bg-white p-6 rounded-2xl shadow-md border border-vovinam-100 hover:shadow-xl hover:border-vovinam-300 transition">
+                        <div class="w-12 h-12 rounded-xl bg-vovinam-800 text-white flex items-center justify-center mb-4 shadow-md">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-vovinam-900 mb-2">Biển Cả & Bầu Trời</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Sự bao la của đại dương và bầu trời nhắc nhở người võ sĩ phải có tấm lòng rộng mở, bao dung, tinh thần học hỏi không giới hạn như biển lớn dung nạp trăm sông.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Cột phải: Minh họa bộ võ phục Vovinam xanh dương -->
+                <div class="lg:col-span-5">
+                    <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-vovinam-200 text-center">
+                        <!-- Minh họa SVG Võ Phục Xanh Vovinam sắc nét -->
+                        <div class="bg-gradient-to-b from-sky-100 to-vovinam-100 rounded-2xl p-6 mb-6 flex items-center justify-center">
+                            <svg viewBox="0 0 260 280" class="w-56 h-60 drop-shadow-lg">
+                                <!-- Quần võ phục xanh -->
+                                <path d="M85 155 L75 260 L115 260 L130 185 L145 260 L185 260 L175 155 Z" fill="#1e40af" stroke="#172554" stroke-width="2"/>
+                                <!-- Nếp gấp quần -->
+                                <line x1="95" y1="180" x2="92" y2="250" stroke="#3b82f6" stroke-width="2" opacity="0.6"/>
+                                <line x1="165" y1="180" x2="168" y2="250" stroke="#3b82f6" stroke-width="2" opacity="0.6"/>
+                                
+                                <!-- Thân áo võ phục xanh -->
+                                <path d="M75 55 L30 95 L50 120 L80 95 L80 175 L180 175 L180 95 L210 120 L230 95 L185 55 L155 45 L130 85 L105 45 Z" fill="#1d4ed8" stroke="#1e3a8a" stroke-width="2.5" stroke-linejoin="round"/>
+                                
+                                <!-- Cổ áo chữ V đắp chéo đặc trưng -->
+                                <path d="M105 45 L135 125 L125 130 L97 50 Z" fill="#2563eb" stroke="#1e3a8a" stroke-width="1.5"/>
+                                <path d="M155 45 L120 135 L130 140 L163 50 Z" fill="#3b82f6" stroke="#1e3a8a" stroke-width="1.5"/>
+
+                                <!-- Phù hiệu Vovinam bên ngực trái -->
+                                <circle cx="155" cy="92" r="10" fill="#ffffff" stroke="#facc15" stroke-width="1.5"/>
+                                <path d="M155 83 A9 9 0 0 1 155 101 A4.5 4.5 0 0 1 155 92 A4.5 4.5 0 0 0 155 83 Z" fill="#dc2626"/>
+                                <path d="M155 83 A9 9 0 0 0 155 101 A4.5 4.5 0 0 0 155 92 A4.5 4.5 0 0 1 155 83 Z" fill="#1d4ed8"/>
+
+                                <!-- Đai võ màu vàng (Hoàng đai) thắt ngang eo -->
+                                <rect x="78" y="138" width="104" height="14" rx="3" fill="#eab308" stroke="#a16207" stroke-width="1.5"/>
+                                <!-- Dải đai buông xuống -->
+                                <path d="M122 152 L110 205 L124 208 L130 152 Z" fill="#eab308" stroke="#a16207" stroke-width="1.5"/>
+                                <path d="M138 152 L150 205 L136 208 L130 152 Z" fill="#facc15" stroke="#a16207" stroke-width="1.5"/>
+                                <!-- Nút thắt đai -->
+                                <rect x="121" y="136" width="18" height="18" rx="4" fill="#ca8a04" stroke="#854d0e" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+
+                        <h4 class="text-xl font-bold text-vovinam-900">Bộ Võ Phục Xanh Truyền Thống</h4>
+                        <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+                            Được quy định thống nhất trên toàn thế giới từ năm 1964, kết hợp cùng bảng tên bên ngực phải và phù hiệu môn phái bên ngực trái (gần trái tim).
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-center space-x-2 text-xs font-semibold text-vovinam-700">
+                            <span class="w-3 h-3 rounded-full bg-vovinam-600"></span>
+                            <span>Mã màu nhận diện: Xanh Dương Vovinam</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHẦN 3: HỆ THỐNG CÁC BẬC ĐAI TRONG VOVINAM -->
+    <section id="bac-dai" class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="text-vovinam-600 font-bold tracking-wider uppercase text-sm">Lộ Trình Tu Dưỡng</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-vovinam-900 mt-2">
+                    Hệ Thống Các Bậc Đai Trong Vovinam
+                </h2>
+                <p class="text-slate-600 mt-4 text-base sm:text-lg">
+                    Mỗi màu đai đánh dấu một chặng đường rèn luyện kỹ thuật, đạo đức và sự trưởng thành trong tâm thức của người môn sinh Việt Võ Đạo.
+                </p>
+            </div>
+
+            <!-- Hình ảnh minh họa tập luyện & tinh thần đồng đội -->
+            <div class="mb-12 rounded-3xl overflow-hidden shadow-lg border border-vovinam-100 relative h-56 sm:h-72">
+                <img 
+                    src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1400&q=80" 
+                    alt="Minh họa quá trình rèn luyện và thăng cấp đai võ thuật" 
+                    onerror="this.src='https://placehold.co/1200x400/1d4ed8/ffffff?text=He+Thong+Dang+Cap+Vovinam'"
+                    class="w-full h-full object-cover object-center"
+                >
+                <div class="absolute inset-0 bg-gradient-to-r from-vovinam-950/90 via-vovinam-900/70 to-transparent flex items-center p-6 sm:p-10">
+                    <div class="max-w-xl text-white space-y-2">
+                        <span class="text-xs font-bold uppercase tracking-widest text-sky-300">Từ Nhập Môn Đến Chưởng Môn</span>
+                        <h3 class="text-2xl sm:text-3xl font-bold">5 Hệ Thống Đẳng Cấp Cốt Lõi</h3>
+                        <p class="text-sm sm:text-base text-vovinam-100">
+                            Màu đai biến đổi theo quy luật ngũ hành và nhân sinh: từ màu xanh hy vọng của người mới nhập môn đến sắc trắng tinh khôi tượng trưng cho sự viên mãn của võ đạo.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Danh sách 5 thẻ bậc đai trực quan (theo thứ tự từ thấp đến cao) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- 1. LAM ĐAI -->
+                <div class="rounded-2xl border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-white p-6 shadow-md hover:shadow-xl transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full bg-blue-600 text-white text-xs font-bold uppercase tracking-wider">
+                                Cấp 1 • Nhập Môn & Sơ Cấp
+                            </span>
+                            <span class="text-blue-700 font-extrabold text-lg">01</span>
+                        </div>
+                        <!-- Thanh minh họa chiếc đai võ -->
+                        <div class="h-6 w-full rounded-lg bg-blue-600 shadow-inner mb-5 flex items-center justify-end pr-3 border border-blue-800">
+                            <div class="flex space-x-1">
+                                <span class="w-1.5 h-6 bg-yellow-400"></span>
+                                <span class="w-1.5 h-6 bg-yellow-400"></span>
+                                <span class="w-1.5 h-6 bg-yellow-400"></span>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-blue-950 mb-2">Lam Đai (Màu Xanh)</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            <strong>Ý nghĩa:</strong> Tượng trưng cho màu của hy vọng, báo hiệu người môn sinh bắt đầu bước chân vào con đường võ học, mang trong mình niềm tin và sự hăng say rèn luyện.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-blue-100 text-xs text-blue-800 font-medium">
+                        Gồm: Lam đai tự vệ, Lam đai nhập môn, Lam đai I, II, III (vạch vàng).
+                    </div>
+                </div>
+
+                <!-- 2. HOÀNG ĐAI -->
+                <div class="rounded-2xl border-2 border-amber-300 bg-gradient-to-br from-amber-50 to-white p-6 shadow-md hover:shadow-xl transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full bg-amber-500 text-slate-950 text-xs font-bold uppercase tracking-wider">
+                                Cấp 2 • Trung Đẳng (Huấn Luyện Viên)
+                            </span>
+                            <span class="text-amber-600 font-extrabold text-lg">02</span>
+                        </div>
+                        <!-- Thanh minh họa chiếc đai võ -->
+                        <div class="h-6 w-full rounded-lg bg-amber-400 shadow-inner mb-5 flex items-center justify-end pr-3 border border-amber-600">
+                            <div class="flex space-x-1">
+                                <span class="w-1.5 h-6 bg-red-600"></span>
+                                <span class="w-1.5 h-6 bg-red-600"></span>
+                                <span class="w-1.5 h-6 bg-red-600"></span>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-amber-950 mb-2">Hoàng Đai (Màu Vàng)</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            <strong>Ý nghĩa:</strong> Màu vàng tượng trưng cho màu da của người Việt và đất mẹ quê hương. Võ thuật lúc này đã thấm sâu vào máu thịt, môn sinh đủ tư cách truyền dạy võ đạo.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-amber-200 text-xs text-amber-900 font-medium">
+                        Gồm: Hoàng đai trơn, Hoàng đai I, II, III cấp (vạch đỏ).
+                    </div>
+                </div>
+
+                <!-- 3. CHUẨN HỒNG ĐAI -->
+                <div class="rounded-2xl border-2 border-red-300 bg-gradient-to-br from-rose-50 to-white p-6 shadow-md hover:shadow-xl transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full bg-red-600 text-white text-xs font-bold uppercase tracking-wider">
+                                Cấp 3 • Cao Đẳng Sơ Khởi
+                            </span>
+                            <span class="text-red-600 font-extrabold text-lg">03</span>
+                        </div>
+                        <!-- Thanh minh họa chiếc đai võ (Đỏ viền vàng) -->
+                        <div class="h-6 w-full rounded-lg bg-red-600 shadow-inner mb-5 border-y-4 border-amber-400"></div>
+                        <h3 class="text-2xl font-extrabold text-red-950 mb-2">Chuẩn Hồng Đai</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            <strong>Ý nghĩa:</strong> Nền đỏ viền vàng đánh dấu bước chuyển mình quan trọng từ bậc Trung đẳng lên Cao đẳng. Biểu thị tinh thần võ đạo đã đạt đến độ chín muồi và sự kiên định sắt đá.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-rose-200 text-xs text-red-900 font-medium">
+                        Tương đương Võ sư Chuẩn Cao đẳng (4 Đẳng).
+                    </div>
+                </div>
+
+                <!-- 4. HỒNG ĐAI -->
+                <div class="rounded-2xl border-2 border-red-500 bg-gradient-to-br from-red-50 to-white p-6 shadow-md hover:shadow-xl transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-3 py-1 rounded-full bg-red-700 text-white text-xs font-bold uppercase tracking-wider">
+                                Cấp 4 • Cao Đẳng (Võ Sư)
+                            </span>
+                            <span class="text-red-700 font-extrabold text-lg">04</span>
+                        </div>
+                        <!-- Thanh minh họa chiếc đai võ (Đỏ viền trắng + vạch trắng) -->
+                        <div class="h-6 w-full rounded-lg bg-red-700 shadow-inner mb-5 border-y-2 border-white flex items-center justify-end pr-3">
+                            <div class="flex space-x-1">
+                                <span class="w-1.5 h-5 bg-white"></span>
+                                <span class="w-1.5 h-5 bg-white"></span>
+                                <span class="w-1.5 h-5 bg-white"></span>
+                                <span class="w-1.5 h-5 bg-white"></span>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-red-950 mb-2">Hồng Đai (Màu Đỏ)</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            <strong>Ý nghĩa:</strong> Màu đỏ tượng trưng cho máu nóng hào hùng và ngọn lửa nhiệt huyết bất diệt. Người mang Hồng đai là những bậc Võ sư cống hiến trọn đời cho sự phát triển của môn phái.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-red-200 text-xs text-red-900 font-medium">
+                        Gồm: Hồng đai I đến Hồng đai VI cấp (từ 5 đến 10 Đẳng).
+                    </div>
+                </div>
+
+                <!-- 5. BẠCH ĐAI -->
+                <div class="md:col-span-2 lg:col-span-2 rounded-2xl border-2 border-vovinam-300 bg-gradient-to-r from-slate-50 via-white to-vovinam-50 p-6 sm:p-8 shadow-md hover:shadow-xl transition flex flex-col justify-between">
+                    <div>
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                            <span class="px-3.5 py-1 rounded-full bg-vovinam-900 text-white text-xs font-bold uppercase tracking-wider">
+                                Cấp 5 • Đẳng Cấp Tối Cao (Chưởng Môn)
+                            </span>
+                            <span class="text-vovinam-800 font-extrabold text-lg">05 • Đỉnh Cao Võ Đạo</span>
+                        </div>
+                        <!-- Thanh minh họa chiếc Bạch đai (Trắng có 3 chỉ xanh, vàng, đỏ) -->
+                        <div class="h-7 w-full rounded-lg bg-white shadow-md mb-5 border border-slate-300 flex flex-col justify-center space-y-0.5 px-2">
+                            <div class="h-0.5 w-full bg-blue-600"></div>
+                            <div class="h-0.5 w-full bg-amber-400"></div>
+                            <div class="h-0.5 w-full bg-red-600"></div>
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-vovinam-900 mb-2">Bạch Đai (Màu Trắng Tinh Khôi)</h3>
+                        <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">
+                            <strong>Ý nghĩa:</strong> Khác với nhiều môn võ dùng Bạch đai cho người mới bắt đầu, trong Vovinam, <strong>Bạch đai là cấp đai tối cao</strong> dành riêng cho Võ sư Chưởng môn. Màu trắng tượng trưng cho sự thanh khiết tuyệt đối, tinh thần vô cực và chiều sâu thâm thúy của võ đạo đã đạt đến cảnh giới viên mãn; ba đường chỉ xanh - vàng - đỏ ở giữa quy tụ toàn bộ tinh hoa của các cấp đai.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-vovinam-100 flex flex-wrap items-center justify-between gap-2 text-xs text-vovinam-800 font-semibold">
+                        <span>Biểu tượng của sự hội tụ: Xanh (Hy vọng) • Vàng (Dân tộc) • Đỏ (Nhiệt huyết)</span>
+                        <span class="px-2.5 py-1 bg-vovinam-100 rounded-md">Độc tôn trong hệ thống môn phái</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER: TÓM TẮT TINH THẦN VIỆT VÕ ĐẠO -->
+    <footer class="bg-vovinam-950 text-vovinam-200 border-t border-vovinam-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-10 border-b border-vovinam-800/80">
+                <!-- Cột giới thiệu -->
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-vovinam-600 flex items-center justify-center text-white font-extrabold text-lg shadow">
+                            V
+                        </div>
+                        <div>
+                            <h3 class="text-white font-extrabold text-xl tracking-wide">VOVINAM - VIỆT VÕ ĐẠO</h3>
+                            <p class="text-xs text-sky-400 uppercase tracking-widest">Học Võ Để Phụng Sự</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-vovinam-300 leading-relaxed">
+                        Môn võ thuật cổ truyền Việt Nam do Võ sư Sáng tổ Nguyễn Lộc sáng lập năm 1938. Ngày nay, Vovinam đã trở thành chiếc cầu nối văn hóa đưa tinh thần thượng võ và con người Việt Nam vươn tầm quốc tế.
+                    </p>
+                </div>
+
+                <!-- Cột 10 Điều Tâm Niệm (Tóm tắt tinh thần) -->
+                <div class="lg:col-span-7 bg-vovinam-900/60 rounded-2xl p-6 border border-vovinam-800">
+                    <h4 class="text-white font-bold text-base sm:text-lg mb-3 flex items-center">
+                        <span class="w-2 h-2 rounded-full bg-sky-400 mr-2"></span>
+                        Tinh Thần Cốt Lõi Của Môn Sinh Việt Võ Đạo
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm text-vovinam-200">
+                        <div class="flex items-start space-x-2">
+                            <span class="text-sky-400 font-bold">01.</span>
+                            <span>Đạt tới cao độ của nghệ thuật để phục vụ dân tộc và nhân loại.</span>
+                        </div>
+                        <div class="flex items-start space-x-2">
+                            <span class="text-sky-400 font-bold">02.</span>
+                            <span>Trung kiên phát huy môn phái, xây dựng thế hệ thanh niên Việt Võ Đạo.</span>
+                        </div>
+                        <div class="flex items-start space-x-2">
+                            <span class="text-sky-400 font-bold">03.</span>
+                            <span>Đồng tâm nhất trí, tôn kính người trên, thương mến đồng đạo.</span>
+                        </div>
+                        <div class="flex items-start space-x-2">
+                            <span class="text-sky-400 font-bold">04.</span>
+                            <span>Tuyệt đối tôn trọng kỷ luật, nêu cao danh dự võ sĩ.</span>
+                        </div>
+                        <div class="flex items-start space-x-2">
+                            <span class="text-sky-400 font-bold">05.</span>
+                            <span>Tôn trọng các võ phái khác, chỉ dùng võ để tự vệ và bênh vực lẽ phải.</span>
+                        </div>
+                        <div class="flex items-start space-x-2">
+                            <span class="text-sky-400 font-bold">06.</span>
+                            <span>Chuyên cần học tập, rèn luyện tinh thần, trau dồi đạo hạnh.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bản quyền dưới cùng -->
+            <div class="pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-vovinam-400 gap-4">
+                <p>&copy; 2026 Giới Thiệu Vovinam - Việt Võ Đạo. Tôn vinh tinh hoa võ học Việt Nam.</p>
+                <div class="flex space-x-6">
+                    <a href="#sang-to" class="hover:text-white transition">Sáng Tổ</a>
+                    <a href="#vo-phuc" class="hover:text-white transition">Võ Phục</a>
+                    <a href="#bac-dai" class="hover:text-white transition">Bậc Đai</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script xử lý tương tác Menu Mobile -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+
+                // Tự động đóng menu khi nhấp vào liên kết trên thiết bị di động
+                const mobileLinks = mobileMenu.querySelectorAll('a');
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.add('hidden');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
